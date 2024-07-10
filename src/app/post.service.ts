@@ -26,7 +26,7 @@ export class PostService {
         return lastValueFrom(this.http.get<Post[]>(`https://jsonplaceholder.typicode.com/posts`))
     }
 
-    getCommentForPost(postId: number) {
+    getCommentForPost(postId: number): Promise<Comment[]> {
         return lastValueFrom(
             this.http.get<Comment[]>(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
         )

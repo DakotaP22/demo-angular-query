@@ -7,6 +7,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { PostService } from './post.service';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import { HttpClient } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { PostComponent } from './post/post.component';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +19,8 @@ import { HttpClient } from '@angular/common/http';
     MatCheckboxModule,
     MatButtonModule,
     MatSlideToggleModule,
+    MatProgressSpinnerModule,
+    PostComponent
   ],
   providers: [PostService],
   templateUrl: './app.component.html',
@@ -29,7 +33,5 @@ export class AppComponent {
     queryKey: ['posts'],
     queryFn: () => this.postSvc.getPosts()
   }))
-
-  data = 5;
 
 }

@@ -1,3 +1,11 @@
-<h1>Test</h1>
-<p>Test: {{data}}</p>
-<p>Pending: {{posts.isPending()}}</p>
+@defer(when !posts.isPending()) {
+  <div class="post-feed">
+    @for(post of posts.data(); track post.id) {
+      <post [post]="post"/>
+    }
+  </div>
+} @placeholder (minimum 500ms) {
+  <div class="loader">
+    <mat-spinner></mat-spinner>
+  </div>
+}
