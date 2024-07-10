@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { PostService } from './post.service';
+import { injectQuery } from '@tanstack/angular-query-experimental';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +18,18 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatButtonModule,
     MatSlideToggleModule,
   ],
+  providers: [PostService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'AngularTemplateM3';
+  private readonly postSvc = inject(PostService);
+
+  posts = injectQuery(() => ({
+    queryKey: ['posts'],
+    queryFn: () => this.postSvc.getPosts()
+  }))
+
+  data = 5;
+
 }
